@@ -1,43 +1,127 @@
-# 🎵 Music Recommender Simulation
-```markdown
-# 🎧 Model Card - Music Recommender Simulation
+## Evaluation & Reliability
 
-## Project Summary
+We created a test harness (`evaluation.py`) to simulate different user profiles and measure system performance. The script runs the recommender on a set of predefined users and prints summary metrics:
 
-This project is a simple music recommender that suggests songs based on a user's taste profile. It uses features like genre, mood, energy, and other song attributes to score and rank songs.
+- **Genre Match Score:** Fraction of recommendations matching the user's preferred genre.
+- **Diversity Score:** Fraction of unique artists in the recommendations.
 
-The goal of this project is to:
+**Observed:**
+- Higher genre weights increase genre alignment but reduce diversity.
+- Diversity penalties improve the spread of recommendations across artists.
+- All test users received recommendations; no errors encountered (basic guardrail).
 
-- represent songs and user preferences as data
-- build a scoring system for recommendations
-- test how changes affect results
-- reflect on bias and limitations in recommender systems
+Run the evaluation with:
+```bash
+python evaluation.py
+```
+# Interpretable Music Recommender System
 
----
+## Original Project (Modules 1-3)
+**Music Recommender Simulation**: The original project aimed to build a simple, content-based music recommender that suggests songs based on user preferences for genre, mood, and song features. The goal was to explore how recommenders use data to make predictions, understand bias, and experiment with scoring models.
 
-## How The System Works
+## Project Title & Summary
+**Hybrid Retrieval + Ranking Music Recommender with Explanation and Reliability Layer**
 
-This recommender uses a **content-based filtering** approach. Instead of using listening history from many users, it compares the features of each song to a user’s taste profile.
+This project is an interpretable AI system that recommends songs by filtering, scoring, and ranking a catalog based on user preferences. It generates natural language explanations for each recommendation and includes automated reliability tests. The system demonstrates how to build transparent, testable AI for real-world use.
 
-Each song includes features like:
+## Architecture Overview
+The system consists of four main components:
 
-- genre
-- mood
-- energy
-- tempo
-- valence
-- danceability
-- acousticness
-- popularity
-- release decade
-- language
+1. **Retriever (Candidate Filtering):** Filters the song pool using user preferences (genre, mood, etc.).
+2. **Scoring & Ranking:** Scores each candidate song using a model that compares features to the user profile, then ranks them.
+3. **Explanation Layer:** Generates a human-readable explanation for each recommendation, referencing metadata and similar songs.
+4. **Evaluator/Tester:** Runs automated tests to check reliability, explanation quality, and fallback behavior.
 
-The system creates a user profile based on liked songs and compares each song to that profile. Songs that are more similar get higher scores and are ranked as better recommendations.
+![System Architecture](diagrams/architecture.png)
 
----
+## Setup Instructions
+1. Clone the repository and navigate to the project folder.
+2. (Optional) Create a virtual environment:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # Mac/Linux
+   .venv\Scripts\activate    # Windows
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Run the main program:
+   ```bash
+   python -m src.main
+   ```
+5. Run tests:
+   ```bash
+   pytest
+   ```
+
+## Sample Interactions
+**Input:**
+```
+User preferences: {"genre": "pop", "mood": "happy", "energy": 0.8}
+```
+**Output:**
+```
+🎵 Blinding Lights by The Weeknd
+   Score: 4.25
+   Reasons: This song matches your favorite genre 'pop', matches your favorite mood 'happy', has energy level very close to your target, Similar songs you might like: 'Levitating' by Dua Lipa, 'Don't Start Now' by Dua Lipa.
+```
+
+**Input:**
+```
+User preferences: {"genre": "rock", "mood": "intense", "energy": 0.95}
+```
+**Output:**
+```
+🎵 Enter Sandman by Metallica
+   Score: 4.10
+   Reasons: This song matches your favorite genre 'rock', matches your favorite mood 'intense', has energy level very close to your target, Similar songs you might like: 'Back In Black' by AC/DC, 'Smells Like Teen Spirit' by Nirvana.
+```
+
+## Design Decisions
+- **Interpretability:** Explanations are generated for every recommendation to make the system transparent.
+- **Reliability:** Automated tests ensure the system always returns recommendations and explanations, even for edge cases.
+- **Modularity:** The pipeline is split into retrieval, scoring, explanation, and evaluation for clarity and extensibility.
+- **Trade-offs:** The system uses simple content-based filtering and scoring for interpretability, at the cost of not leveraging collaborative filtering or deep learning.
 
 
-### Algorithm Recipe
+## Reliability & Testing Summary
+
+**How reliability is measured:**
+- Automated tests (see `tests/test_reliability.py`) check that recommendations are always returned, explanations are present, and the system falls back gracefully if no candidates match.
+- Logging is used to record filtering steps and fallback events for debugging and transparency.
+- Human evaluation: Sample outputs were reviewed to ensure explanations are clear and recommendations make sense.
+
+**Sample results:**
+- 5 out of 5 automated tests passed; the AI always returned recommendations and explanations, even for edge cases.
+- Logging confirmed that fallback logic works when no candidates match user preferences.
+- Human review found explanations to be clear and relevant in most cases.
+
+**What worked:** The modular design made it easy to add reliability tests and explanation logic. The system always returns recommendations, even for rare or conflicting preferences.
+**What didn't:** The system can be limited by the size and diversity of the song dataset. Some explanations may be generic if user preferences are too broad or strict.
+**What I learned:** Automated tests are essential for reliability, and clear explanations help users trust AI recommendations.
+
+
+## Responsible AI Reflection
+
+**Limitations & Biases:**
+- The system is limited by the size and diversity of the song dataset; it may over-favor popular genres or moods and may not serve niche preferences well.
+- Content-based filtering can reinforce existing user tastes, reducing exposure to new or diverse music.
+- Explanations are rule-based and may not capture deeper context or user intent.
+
+**Potential Misuse & Prevention:**
+- The AI could be misused to reinforce echo chambers or limit user discovery. To prevent this, diversity penalties and fallback logic are included, and the system is designed to be transparent about its logic.
+- The system should not be used for sensitive or high-stakes recommendations (e.g., health, finance) without further validation and oversight.
+
+**Surprises in Reliability Testing:**
+- I was surprised that the fallback logic worked so reliably, always returning recommendations even for conflicting or rare preferences.
+- Some explanations were more generic than expected, especially when user preferences were too broad or strict.
+
+**Collaboration with AI:**
+- The AI assistant was helpful in suggesting a modular pipeline (retriever, scorer, explainer, tester), which made the system easier to build and test.
+- One flawed suggestion was to create a new README file instead of editing the existing one, which would have caused file conflicts. This highlighted the importance of reviewing AI-generated changes before applying them.
+
+Overall, this project reinforced the value of responsible, transparent, and testable AI development, and the importance of human oversight when collaborating with AI tools.
 The recommender scores songs by comparing them to the user’s preferences.
 
 - Numerical features like **energy** and **valence** are scored by how close they are to the user’s target values
