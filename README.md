@@ -194,9 +194,10 @@ I tested a few changes to see how the recommender responded.
 - Adding a diversity penalty helped reduce repeated artists in the top recommendations
 - Changing the importance of energy and genre showed that even small weight changes can noticeably affect rankings
 
-Here are some of the sreenshots:
-- https://vscode.dev/github/nifemifabunmi/ai110-module3show-musicrecommendersimulation-starter/blob/main/Screenshot%202026-04-07%20at%207.37.23%E2%80%AFPM.png
-- https://vscode.dev/github/nifemifabunmi/ai110-module3show-musicrecommendersimulation-starter/blob/main/Screenshot%202026-04-08%20at%204.59.48%E2%80%AFPM.png
+
+Here are some of the screenshots (see more in the screenshots/ folder):
+![Run Example 1](screenshots/Screenshot%202026-04-07%20at%207.37.23%E2%80%AFPM.png)
+![Run Example 2](screenshots/Screenshot%202026-04-08%20at%204.59.48%E2%80%AFPM.png)
 
 These experiments showed that recommendation systems are very sensitive to feature design and scoring choices.
 
