@@ -1,6 +1,6 @@
 # Music Recommender & Ranking System
 
-## Original Project (Modules 1-3)
+## Original Project
 **Music Recommender Simulation**: The original project aimed to build a simple, content-based music recommender that suggests songs based on user preferences for genre, mood, and song features. The goal was to explore how recommenders use data to make predictions, understand bias, and experiment with scoring models.
 
 ## Project Title & Summary
@@ -173,6 +173,9 @@ I tested a few changes to see how the recommender responded.
 - Adding a diversity penalty helped reduce repeated artists in the top recommendations
 - Changing the importance of energy and genre showed that even small weight changes can noticeably affect rankings
 
+---
+
+## Short Walkthrough with Screenshots
 
 Here are some of the screenshots (see more in the screenshots/ folder):
 ![Run Example 1](screenshots/Screenshot%202026-04-07%20at%207.37.23%E2%80%AFPM.png)
