@@ -1,20 +1,4 @@
-## Evaluation & Reliability
-
-We created a test harness (`evaluation.py`) to simulate different user profiles and measure system performance. The script runs the recommender on a set of predefined users and prints summary metrics:
-
-- **Genre Match Score:** Fraction of recommendations matching the user's preferred genre.
-- **Diversity Score:** Fraction of unique artists in the recommendations.
-
-**Observed:**
-- Higher genre weights increase genre alignment but reduce diversity.
-- Diversity penalties improve the spread of recommendations across artists.
-- All test users received recommendations; no errors encountered (basic guardrail).
-
-Run the evaluation with:
-```bash
-python evaluation.py
-```
-# Interpretable Music Recommender System
+# Music Recommender & Ranking System
 
 ## Original Project (Modules 1-3)
 **Music Recommender Simulation**: The original project aimed to build a simple, content-based music recommender that suggests songs based on user preferences for genre, mood, and song features. The goal was to explore how recommenders use data to make predictions, understand bias, and experiment with scoring models.
@@ -34,26 +18,39 @@ The system consists of four main components:
 
 ![System Architecture](diagrams/architecture.png)
 
-## Setup Instructions
-1. Clone the repository and navigate to the project folder.
-2. (Optional) Create a virtual environment:
+---
+
+## Getting Started
+
+1. Create a virtual environment (optional but recommended):
+
    ```bash
    python -m venv .venv
-   source .venv/bin/activate  # Mac/Linux
-   .venv\Scripts\activate    # Windows
-   ```
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Run the main program:
-   ```bash
-   python -m src.main
-   ```
-5. Run tests:
-   ```bash
-   pytest
-   ```
+   source .venv/bin/activate      # Mac or Linux
+   .venv\Scripts\activate         # Windows
+
+2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the app:
+
+```bash
+python -m src.main
+```
+
+### Running Tests
+
+Run the starter tests with:
+
+```bash
+pytest
+```
+You can add more tests in `tests/test_recommender.py`.
+
+---
 
 ## Sample Interactions
 **Input:**
@@ -102,6 +99,24 @@ User preferences: {"genre": "rock", "mood": "intense", "energy": 0.95}
 **What I learned:** Automated tests are essential for reliability, and clear explanations help users trust AI recommendations.
 
 
+## Evaluation & Reliability
+
+We created a test harness (`evaluation.py`) to simulate different user profiles and measure system performance. The script runs the recommender on a set of predefined users and prints summary metrics:
+
+- **Genre Match Score:** Fraction of recommendations matching the user's preferred genre.
+- **Diversity Score:** Fraction of unique artists in the recommendations.
+
+**Observed:**
+- Higher genre weights increase genre alignment but reduce diversity.
+- Diversity penalties improve the spread of recommendations across artists.
+- All test users received recommendations; no errors encountered (basic guardrail).
+
+Run the evaluation with:
+```bash
+python evaluation.py
+```
+
+
 ## Responsible AI Reflection
 
 **Limitations & Biases:**
@@ -140,42 +155,6 @@ Some possible biases in this recommender include:
 - recommending similar songs too often
 - limited variety because of the small dataset
 - struggling with unusual or mixed preferences
-
----
-
-
-## Getting Started
-
-### Setup
-
-1. Create a virtual environment (optional but recommended):
-
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate      # Mac or Linux
-   .venv\Scripts\activate         # Windows
-
-2. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-3. Run the app:
-
-```bash
-python -m src.main
-```
-
-### Running Tests
-
-Run the starter tests with:
-
-```bash
-pytest
-```
-
-You can add more tests in `tests/test_recommender.py`.
 
 ---
 
@@ -235,9 +214,7 @@ Write 1 to 2 paragraphs here about what you learned:
 - about how recommenders turn data into predictions
 - about where bias or unfairness could show up in systems like this
 
-This project helped me understand how recommender systems turn data into ranked predictions. I learned that even a simple scoring system can feel personalized, but it also depends heavily on the dataset and feature weights.
-
-One of the biggest lessons was that bias can appear easily. Small choices in data or scoring can shape what gets recommended and what gets ignored. This made me think more critically about how real-world music recommenders influence what people discover.
+This project helped me understand how recommender systems turn data into ranked predictions. I learned that even a simple scoring system can feel personalized, but it also depends heavily on the dataset and feature weights. One of the biggest lessons was that bias can appear easily. Small choices in data or scoring can shape what gets recommended and what gets ignored. This made me think more critically about how real-world music recommenders influence what people discover.
 
 ---
 
